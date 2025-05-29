@@ -14,6 +14,7 @@ class Strings {
   static const String addToWishlist = "Add to Wishlist";
   static const String shopNow = "Shop Now";
   static const String mostLovedProducts = 'Most Loved Products';
+  static const String hottestDeals = 'Hottest Deals';
   static const String ourHappyClients = 'Our Happy Clients';
   static const String featuredIn = "Featured In:";
 }

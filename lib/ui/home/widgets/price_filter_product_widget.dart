@@ -4,14 +4,14 @@ import 'package:ecom_print_store/constants/strings.dart';
 import 'package:ecom_print_store/ui/global_widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 
-class FeatureProductWidgets extends StatefulWidget {
+class PriceFilterProductWidget extends StatefulWidget {
   final productName;
   final description;
   final price;
   final cuttedPrice;
   final imageUrl;
 
-  const FeatureProductWidgets({
+  const PriceFilterProductWidget({
     super.key,
     required this.productName,
     required this.description,
@@ -21,10 +21,10 @@ class FeatureProductWidgets extends StatefulWidget {
   });
 
   @override
-  State<FeatureProductWidgets> createState() => _FeatureProductWidgetsState();
+  State<PriceFilterProductWidget> createState() => _PriceFilterProductWidgetState();
 }
 
-class _FeatureProductWidgetsState extends State<FeatureProductWidgets> {
+class _PriceFilterProductWidgetState extends State<PriceFilterProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

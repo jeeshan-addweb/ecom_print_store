@@ -1,10 +1,18 @@
 import 'package:ecom_print_store/constants/assets.dart';
 import 'package:ecom_print_store/ui/auth/register/register.dart';
 import 'package:ecom_print_store/ui/global_widgets/footer_widget.dart';
+import 'package:ecom_print_store/ui/home/filter_by_price_product_controller.dart';
+import 'package:ecom_print_store/ui/home/hottest_deal_products_controller.dart';
 import 'package:ecom_print_store/ui/home/widgets/client_review_card.dart';
 import 'package:ecom_print_store/ui/home/widgets/feature_product_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/featured_in_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/home_banner_widget.dart';
+import 'package:ecom_print_store/ui/home/widgets/hottest_deal_product_widget.dart';
+import 'package:ecom_print_store/ui/home/widgets/price_filter_product_widget.dart';
+import 'package:ecom_print_store/ui/home/widgets/shop_slidebar.dart';
+
+import '../home/categories_controller.dart';
+import 'controller.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({super.key});
@@ -15,7 +23,18 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
 
+  final ShopScreenController controller = Get.put(ShopScreenController());
+  final CategoriesController categoriesController = Get.put(CategoriesController());
+  final FilterByPriceProductController filterByPriceProductController = Get.put(FilterByPriceProductController());
+  final HottestDealProductsController hottestDealProductsController = Get.put(HottestDealProductsController());
 
+  @override
+  void initState() {
+    super.initState();
+    categoriesController.fetchCategories();
+    hottestDealProductsController.fetchHottestDealProducts();
+    //controller.fetchFeaturedProducts();
+  }
 
 
   @override
@@ -94,12 +113,24 @@ class _ShopScreenState extends State<ShopScreen> {
       ),
       body: ListView(
         children: [
+
+          Expanded(
+            child: Container(
+              height: 600,
+              child: ShopSidebar(categoriesController: categoriesController,filterByPriceProductController: filterByPriceProductController,),
+            ),
+          ),
+
+
+
         const  Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+
                 const SizedBox(height: 30),
                 const SizedBox(
                   width: 40,
@@ -109,10 +140,10 @@ class _ShopScreenState extends State<ShopScreen> {
                     color: AppColors.redFF5151,
                   ),
                 ),
-              
-              
-              
-              
+
+
+
+
 
 
               ],
@@ -121,7 +152,7 @@ class _ShopScreenState extends State<ShopScreen> {
           const SizedBox(height: 30),
           // Column(
           //   children: [
-          
+
           //     const SizedBox(height: 16),
 
           //     const Text(
@@ -138,19 +169,38 @@ class _ShopScreenState extends State<ShopScreen> {
           //   ],
           // ),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return const FeatureProductWidgets(
-                productName: "mug",
-                description: "Father’s Day Coffee Mug",
-                price: "₹25.00",
-                cuttedPrice: "₹50.00",
-              );
-            },
-          ),
+
+
+          Obx(() {
+            if (filterByPriceProductController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (filterByPriceProductController.products.isEmpty) {
+              return const Center(child: Text("No filter products found"));
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: filterByPriceProductController.products.length,
+              itemBuilder: (context, index) {
+                final product = filterByPriceProductController.products[index];
+
+                return PriceFilterProductWidget(
+                  productName: product['name'] ?? '',
+                  description: product['slug'] ?? '',
+                  price: product['price'] ??
+                      product['regularPrice'] ??
+                      '₹0.00', // Fallback if both are null
+                  cuttedPrice: product['regularPrice'] ?? '',
+                  imageUrl: product['image']?['sourceUrl'] ?? '',
+                );
+              },
+            );
+          }),
+
+
           const SizedBox(height: 30),
           const HomeBannerWidget(
             firstText: 'Hurry Up!',
@@ -160,36 +210,56 @@ class _ShopScreenState extends State<ShopScreen> {
           const SizedBox(height: 16),
 
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                Strings.mostLovedProducts,
-                style: TextStyle(
-                  color: AppColors.title415161,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: const Text(
+                  Strings.hottestDeals,
+                  style: TextStyle(
+                    color: AppColors.title415161,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               const SizedBox(height: 30),
-              Container(height: 3, width: 30, color: AppColors.redFF5151),
-              const SizedBox(height: 30),
+
             ],
           ),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return const FeatureProductWidgets(
-                productName: "mug",
-                description: "Father’s Day Coffee Mug",
-                price: "₹25.00",
-                cuttedPrice: "₹50.00",
-              );
-            },
-          ),
+          Obx(() {
+            if (hottestDealProductsController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (hottestDealProductsController.products.isEmpty) {
+              return const Center(child: Text("No hottest deal products found"));
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: hottestDealProductsController.products.length,
+              itemBuilder: (context, index) {
+                final product = hottestDealProductsController.products[index];
+
+                return HottestDealProductWidget(
+                  productName: product['name'] ?? '',
+                  description: product['slug'] ?? '',
+                  price: product['price'] ??
+                      product['regularPrice'] ??
+                      '₹0.00', // Fallback if both are null
+                  cuttedPrice: product['regularPrice'] ?? '',
+                  imageUrl: product['image']?['sourceUrl'] ?? '',
+                );
+              },
+            );
+          }),
 
           const SizedBox(height: 16),
+
+
 
           Column(
             children: [
@@ -239,6 +309,7 @@ class _ShopScreenState extends State<ShopScreen> {
           ),
 
           FeaturedInWidget(),
+
         const  CustomFooter()
         ],
       ),

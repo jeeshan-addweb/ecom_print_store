@@ -1,11 +1,16 @@
 import 'package:ecom_print_store/constants/assets.dart';
 import 'package:ecom_print_store/ui/auth/register/register.dart';
 import 'package:ecom_print_store/ui/global_widgets/footer_widget.dart';
+import 'package:ecom_print_store/ui/home/feature_products_controller.dart';
 import 'package:ecom_print_store/ui/home/widgets/client_review_card.dart';
 import 'package:ecom_print_store/ui/home/widgets/feature_product_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/featured_in_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/home_banner_widget.dart';
+import 'package:ecom_print_store/ui/home/widgets/most_loved_product_widget.dart';
 import 'package:ecom_print_store/ui/shop/shop_screen.dart';
+
+import '../shop/controller.dart';
+import 'most_loved_products_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +20,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final MostLovedProductsController mostLovedProductsController = Get.put(MostLovedProductsController());
+  final FeatureProductsController featureProductsController = Get.put(FeatureProductsController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    featureProductsController.fetchFeaturedProducts();
+    mostLovedProductsController.fetchMostLovedProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,19 +194,34 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return const FeatureProductWidgets(
-                productName: "mug",
-                description: "Father’s Day Coffee Mug",
-                price: "₹25.00",
-                cuttedPrice: "₹50.00",
-              );
-            },
-          ),
+          Obx(() {
+            if (featureProductsController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (featureProductsController.products.isEmpty) {
+              return const Center(child: Text("No featured products found"));
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: featureProductsController.products.length,
+              itemBuilder: (context, index) {
+                final product = featureProductsController.products[index];
+
+                return FeatureProductWidgets(
+                  productName: product['name'] ?? '',
+                  description: product['slug'] ?? '',
+                  price: product['price'] ??
+                      product['regularPrice'] ??
+                      '₹0.00', // Fallback if both are null
+                  cuttedPrice: product['regularPrice'] ?? '',
+                  imageUrl: product['image']?['sourceUrl'] ?? '',
+                );
+              },
+            );
+          }),
           const SizedBox(height: 30),
           const HomeBannerWidget(
             firstText: 'Hurry Up!',
@@ -215,19 +246,34 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
 
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return const FeatureProductWidgets(
-                productName: "mug",
-                description: "Father’s Day Coffee Mug",
-                price: "₹25.00",
-                cuttedPrice: "₹50.00",
-              );
-            },
-          ),
+          Obx(() {
+            if (mostLovedProductsController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (mostLovedProductsController.products.isEmpty) {
+              return const Center(child: Text("No most loved products found"));
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: mostLovedProductsController.products.length,
+              itemBuilder: (context, index) {
+                final product = mostLovedProductsController.products[index];
+
+                return MostLovedProductWidgets(
+                  productName: product['name'] ?? '',
+                  description: product['slug'] ?? '',
+                  price: product['price'] ??
+                      product['regularPrice'] ??
+                      '₹0.00', // Fallback if both are null
+                  cuttedPrice: product['regularPrice'] ?? '',
+                  imageUrl: product['image']?['sourceUrl'] ?? '',
+                );
+              },
+            );
+          }),
 
           const SizedBox(height: 16),
 
