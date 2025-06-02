@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final MostLovedProductsController mostLovedProductsController = Get.put(MostLovedProductsController());
-  final FeatureProductsController featureProductsController = Get.put(FeatureProductsController());
+  final MostLovedProductsController mostLovedProductsController = Get.find<MostLovedProductsController>();
+  final FeatureProductsController featureProductsController = Get.find<FeatureProductsController>();
 
   @override
   void initState() {
@@ -218,6 +218,7 @@ class _HomePageState extends State<HomePage> {
                       '₹0.00', // Fallback if both are null
                   cuttedPrice: product['regularPrice'] ?? '',
                   imageUrl: product['image']?['sourceUrl'] ?? '',
+                  productSlug: product['slug'] ?? '',
                 );
               },
             );

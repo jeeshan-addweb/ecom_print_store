@@ -10,6 +10,8 @@ class Strings {
   static const String homeqoute2= "Create personalized magic in just a few clicks";
   static const String getStarted = "Get Started";
   static const String ourfeatureProduct = "Our Featured Products";
+  static const String youMayLike = "You may also like…";
+  static const String relatedProducts = "Related Products";
   static const String addToCart = "ADD TO CART";
   static const String addToWishlist = "Add to Wishlist";
   static const String shopNow = "Shop Now";

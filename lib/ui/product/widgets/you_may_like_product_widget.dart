@@ -2,39 +2,40 @@ import 'package:ecom_print_store/constants/assets.dart';
 import 'package:ecom_print_store/constants/colors.dart';
 import 'package:ecom_print_store/constants/strings.dart';
 import 'package:ecom_print_store/ui/global_widgets/custom_buttons.dart';
-import 'package:ecom_print_store/ui/product/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
-class FeatureProductWidgets extends StatefulWidget {
+import '../product_details_screen.dart';
+
+class YouMayLikeProductWidget extends StatefulWidget {
   final productName;
   final description;
   final price;
   final cuttedPrice;
   final imageUrl;
-  final productSlug;
+  final productSlag;
 
-  const FeatureProductWidgets({
+  const YouMayLikeProductWidget({
     super.key,
     required this.productName,
     required this.description,
     required this.price,
     required this.cuttedPrice,
     required this.imageUrl,
-    required this.productSlug
+    required this.productSlag
   });
 
   @override
-  State<FeatureProductWidgets> createState() => _FeatureProductWidgetsState();
+  State<YouMayLikeProductWidget> createState() => _YouMayLikeProductWidgetState();
 }
 
-class _FeatureProductWidgetsState extends State<FeatureProductWidgets> {
+class _YouMayLikeProductWidgetState extends State<YouMayLikeProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductDetailsScreen(productSlug: widget.productSlug,)));
+          Navigator.push(context, MaterialPageRoute(builder: (_)=> ProductDetailsScreen(productSlug: widget.productSlag,)));
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
