@@ -127,38 +127,86 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: FxRadius.all(14.0),
-      elevation: 0,
-      child: Container(
-        height: 42,
-        width: MediaQuery.sizeOf(context).width*0.45,
-        decoration: BoxDecoration(
-          color: buttonColor,
-          borderRadius: FxRadius.all(5.0),
+    return Container(
+      height: 35,
+      width: MediaQuery.sizeOf(context).width*0.45,
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: FxRadius.all(5.0),
+      ),
+      child: Center(
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onClick,
+            borderRadius: FxRadius.all(5.0),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    textValue,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge
+                        ?.copyWith(color: textColor, fontSize: 14),
+                  ),
+                 
+    
+    
+                ],
+              ),
+            ),
+          ),
         ),
-        child: Center(
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: onClick,
-              borderRadius: FxRadius.all(5.0),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      textValue,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(color: textColor, fontSize: 16),
-                    ),
-                   
+      ),
+    );
+  }
+}
+class AddToCartButtonWithRadius extends StatelessWidget {
+  final Color buttonColor;
+  final String textValue;
+  final Color textColor;
+  final VoidCallback onClick;
 
+  const AddToCartButtonWithRadius({
+    Key? key,
+    required this.buttonColor,
+    required this.textValue,
+    required this.textColor,
+    required this.onClick,
+  }) : super(key: key);
 
-                  ],
-                ),
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 35,
+      width: MediaQuery.sizeOf(context).width*0.45,
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: FxRadius.all(12.0),
+      ),
+      child: Center(
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onClick,
+            borderRadius: FxRadius.all(5.0),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    textValue,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge
+                        ?.copyWith(color: textColor, fontSize: 14),
+                  ),
+                 
+    
+    
+                ],
               ),
             ),
           ),

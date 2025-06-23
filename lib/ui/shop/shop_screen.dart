@@ -10,7 +10,11 @@ import 'package:ecom_print_store/ui/home/widgets/home_banner_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/hottest_deal_product_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/price_filter_product_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/shop_slidebar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../constants/colors.dart';
+import '../../constants/strings.dart';
 import '../home/categories_controller.dart';
 import 'controller.dart';
 

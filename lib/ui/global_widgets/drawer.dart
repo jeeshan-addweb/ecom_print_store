@@ -9,6 +9,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      key: key,
       child: Material(
         color: const Color(0xff4338CA),
         child: ListView(

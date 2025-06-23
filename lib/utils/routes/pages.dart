@@ -1,5 +1,6 @@
 import 'package:ecom_print_store/ui/auth/bindings.dart';
 import 'package:ecom_print_store/ui/auth/forgot_password/forgot_password_page.dart';
+import 'package:ecom_print_store/ui/auth/login/login.dart';
 import 'package:ecom_print_store/ui/auth/login/login_page.dart';
 import 'package:ecom_print_store/ui/auth/register/register_page.dart';
 import 'package:ecom_print_store/ui/auth/reset_password/reset_password_page.dart';
@@ -18,7 +19,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.login,
-      page: () => const LoginPage(),
+      page: () =>  LoginScreen(),
       binding: AuthBindings(),
     ),
     GetPage(
@@ -26,11 +27,11 @@ class AppPages {
       page: () => const RegisterPage(),
       binding: AuthBindings(),
     ),
-    GetPage(
-      name: Routes.forgotPassword,
-      page: () => ForgotPasswordPage(),
-      binding: AuthBindings(),
-    ),
+    // GetPage(
+    //   name: Routes.forgotPassword,
+    //   page: () => ForgotPasswordPage(),
+    //   binding: AuthBindings(),
+    // ),
     GetPage(
       name: Routes.resetPassword,
       page: () => ResetPasswordPage(),
