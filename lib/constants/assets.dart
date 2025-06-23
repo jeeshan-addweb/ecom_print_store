@@ -8,6 +8,8 @@ class Assets {
   static const String homeDisplayImage = "assets/images/product_image.png";
   static const String productImage = "assets/images/product_image_cup.png";
   static const String heartIcon = "assets/icons/heart_icon.png";
+  static const String contactIcon = "assets/icons/contact_icon.png";
+  static const String deleteDash = "assets/icons/delete_dash.png";
   static const String shopNowBanner = "assets/images/shop_now_banner.jpg";
   static const String featuredInLogo = 'assets/images/featured_logo.png';
   static const String featuredInLogo1 = 'assets/images/featured_logo1.png';

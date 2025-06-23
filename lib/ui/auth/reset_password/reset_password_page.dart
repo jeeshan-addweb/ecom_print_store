@@ -1,6 +1,15 @@
+import 'package:ecom_print_store/constants/dimens.dart';
 import 'package:ecom_print_store/ui/auth/register/register.dart';
+import 'package:ecom_print_store/ui/global_widgets/input_fields.dart';
 import 'package:ecom_print_store/utils/dart_extension/dart_utils.dart';
 import 'package:ecom_print_store/utils/flutter/extension.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../constants/colors.dart';
+import '../../global_widgets/custom_buttons.dart';
+import '../controller.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({Key? key}) : super(key: key);

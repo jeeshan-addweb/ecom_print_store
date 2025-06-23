@@ -1,10 +1,18 @@
 
 
 import 'package:ecom_print_store/ui/auth/controller.dart';
+import 'package:ecom_print_store/ui/global_widgets/custom_checkbox.dart';
 import 'package:ecom_print_store/utils/dart_extension/dart_utils.dart';
 import 'package:ecom_print_store/utils/flutter/extension.dart';
 import 'package:ecom_print_store/utils/routes/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../constants/colors.dart';
+import '../../../constants/dimens.dart';
+import '../../global_widgets/custom_buttons.dart';
+import '../../global_widgets/input_fields.dart';
+import '../../global_widgets/snackbars.dart';
 import './register.dart';
 
 class RegisterPage extends StatefulWidget {

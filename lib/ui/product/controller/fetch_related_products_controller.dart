@@ -1,4 +1,4 @@
-import 'package:ecom_print_store/ui/auth/login/login.dart';
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class FetchRelatedProductsController extends GetxController {

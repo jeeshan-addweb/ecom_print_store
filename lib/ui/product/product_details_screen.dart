@@ -1,7 +1,10 @@
 import 'package:ecom_print_store/ui/home/product_details_controller.dart';
 import 'package:ecom_print_store/ui/product/controller/fetch_related_products_controller.dart';
+import 'package:ecom_print_store/ui/product/controller/you_may_like_controller.dart';
 import 'package:ecom_print_store/ui/product/widgets/related_product_widget.dart';
 import 'package:ecom_print_store/ui/product/widgets/you_may_like_product_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants/assets.dart';
 import '../../constants/colors.dart';
@@ -23,14 +26,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductDetailsController productDetailsController = Get.find<ProductDetailsController>();
   final FeatureProductsController featureProductsController = Get.find<FeatureProductsController>();
   final FetchRelatedProductsController relatedProductsController = Get.find<FetchRelatedProductsController>();
-
+  final YouMayLikeController youMayLikeController = Get.find<YouMayLikeController>();
 
 
   @override
   void initState() {
     super.initState();
     productDetailsController.fetchProductDetails(slug: widget.productSlug);
-    featureProductsController.fetchFeaturedProducts();
+   // featureProductsController.fetchFeaturedProducts();
+    youMayLikeController.youMayLikeAlsoProducts();
   }
 
   @override
@@ -315,20 +319,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
             Obx(() {
-              if (featureProductsController.isLoading.value) {
+              if (youMayLikeController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              if (featureProductsController.products.isEmpty) {
+              if (youMayLikeController.products.isEmpty) {
                 return const Center(child: Text("No featured products found"));
               }
 
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: featureProductsController.products.length,
+                itemCount: youMayLikeController.products.length,
                 itemBuilder: (context, index) {
-                  final product = featureProductsController.products[index];
+                  final product = youMayLikeController.products[index];
 
                   return YouMayLikeProductWidget(
                     productName: product['name'] ?? '',

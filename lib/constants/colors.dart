@@ -37,8 +37,10 @@ class AppColors {
   static const redFF5151  = Color(0xffFF5151);
   static const greyEBEDEFDE =Color(0xffEBEDEF);
   static const orangeText = Color(0xFFD56217);
-
-
+  static const redFF5151Light  = Color(0xffFF5151);
+  static const yellowF3E141 = Color(0xffF3E141);
+  static const greyDEDEDE = Color(0xffDEDEDE);
+  static const pageColor = Color(0xffF4F5F6);
 
 
 

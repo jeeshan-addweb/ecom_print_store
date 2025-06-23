@@ -1,5 +1,6 @@
-import 'package:ecom_print_store/ui/auth/register/register.dart';
 import 'package:ecom_print_store/utils/flutter/extension.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 enum BottomNavBarItem { home, search, cart, profile }
 

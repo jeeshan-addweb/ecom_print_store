@@ -6,6 +6,7 @@ import 'package:ecom_print_store/ui/home/feature_products_controller.dart';
 import 'package:ecom_print_store/ui/home/most_loved_products_controller.dart';
 import 'package:ecom_print_store/ui/home/product_details_controller.dart';
 import 'package:ecom_print_store/ui/product/controller/fetch_related_products_controller.dart';
+import 'package:ecom_print_store/ui/product/controller/you_may_like_controller.dart';
 import 'package:ecom_print_store/utils/graphqlConfig/graphql_config.dart';
 import 'package:ecom_print_store/utils/routes/pages.dart';
 import 'package:ecom_print_store/utils/routes/routes.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
       Get.put(FeatureProductsController());
       Get.put(ProductDetailsController());
       Get.put(FetchRelatedProductsController());
+      Get.put(YouMayLikeController());
       runApp(const MyApp());
     });
   }, (error, stackTrace) {
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       title: 'Getx Boilerplate',
-      initialRoute: Routes.home,
+      initialRoute: Routes.login,
 
       theme: themeData,
       defaultTransition: Transition.fade,

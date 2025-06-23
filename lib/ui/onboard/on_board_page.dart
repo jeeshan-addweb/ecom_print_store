@@ -4,6 +4,8 @@ import 'package:ecom_print_store/ui/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../auth/login/login.dart';
+
 class OnBoard extends StatelessWidget {
   const OnBoard({Key? key}) : super(key: key);
 
@@ -12,7 +14,7 @@ class OnBoard extends StatelessWidget {
     final _authController = Get.find<AuthController>();
     return Obx(() {
       if (!_authController.isLogged.value) {
-        return const LoginPage();
+        return  LoginScreen();
       } else {
         return const HomePage();
       }

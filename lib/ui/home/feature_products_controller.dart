@@ -44,6 +44,9 @@ class FeatureProductsController extends GetxController {
 
 
   void fetchFeaturedProducts() async {
+try{
+
+
     isLoading.value = true;
 
     final result = await _client.query(
@@ -55,9 +58,13 @@ class FeatureProductsController extends GetxController {
     } else {
       print("GraphQL Error: ${result.exception.toString()}");
     }
-
-    isLoading.value = false;
+}
+ 
+     catch (e) {
+      print("Unexpected Error you may: $e");
+    } finally {
+      isLoading.value = false;
+    }
   }
-
 
 }

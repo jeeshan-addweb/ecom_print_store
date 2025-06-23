@@ -1,5 +1,5 @@
 import 'package:ecom_print_store/constants/assets.dart';
-import 'package:ecom_print_store/ui/auth/register/register.dart';
+import 'package:ecom_print_store/ui/cart/cart_screen.dart';
 import 'package:ecom_print_store/ui/global_widgets/footer_widget.dart';
 import 'package:ecom_print_store/ui/home/feature_products_controller.dart';
 import 'package:ecom_print_store/ui/home/widgets/client_review_card.dart';
@@ -7,9 +7,16 @@ import 'package:ecom_print_store/ui/home/widgets/feature_product_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/featured_in_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/home_banner_widget.dart';
 import 'package:ecom_print_store/ui/home/widgets/most_loved_product_widget.dart';
+import 'package:ecom_print_store/ui/home/widgets/navigation_drawer.dart';
 import 'package:ecom_print_store/ui/shop/shop_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-import '../shop/controller.dart';
+import '../../constants/colors.dart';
+import '../../constants/strings.dart';
+import '../global_widgets/custom_buttons.dart';
+
 import 'most_loved_products_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +29,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final MostLovedProductsController mostLovedProductsController = Get.find<MostLovedProductsController>();
   final FeatureProductsController featureProductsController = Get.find<FeatureProductsController>();
-
-  @override
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+ 
+  @override 
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -34,11 +42,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: NavigationDrawerWidget(),
       backgroundColor: AppColors.greyEBEDEFDE,
       appBar: AppBar(
         backgroundColor: AppColors.white,
         leadingWidth: 120,
-
+           
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -92,15 +102,17 @@ class _HomePageState extends State<HomePage> {
                 child: IconButton(
                   icon: Image.asset(Assets.cartIcon, height: 25, width: 25),
                   onPressed: () {
-                    // Handle tap
-                  },
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>CartScreen()));
+                                      },
                 ),
               ),
             ),
           ),
           const SizedBox(width: 4),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+                     _scaffoldKey.currentState?.openEndDrawer();   
+            },
             icon: Image.asset(height: 30, width: 30, Assets.menuIcon),
           ),
         ],
@@ -166,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                   textValue: Strings.getStarted,
                   textColor: AppColors.white,
                   onClick: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>ShopScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> ShopScreen()));
 
 
                   },
